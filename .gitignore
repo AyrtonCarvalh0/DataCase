@@ -1,0 +1,20 @@
+# Ambiente virtual
+venv/
+.venv/
+env/
+
+# PyCharm
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dados — os CSVs não sobem para o repositório
+*.csv
+
+# OS
+.DS_Store
+Thumbs.db
