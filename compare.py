@@ -1,4 +1,5 @@
 import pandas as pd
+import math
 
 
 def comparar(df_estado, df_destino, ids_deletados):
@@ -55,17 +56,26 @@ def comparar(df_estado, df_destino, ids_deletados):
         tipos = []
         campos_divergentes = {}
 
+        # STATUS
         if linha_origem['status'] != linha_destino['status']:
             tipos.append('STATUS_DIVERGENTE')
             campos_divergentes['status'] = {
-                'valor_origem' : linha_origem['status'],
+                'valor_origem': linha_origem['status'],
                 'valor_destino': linha_destino['status']
             }
 
-        if round(linha_origem['valor_total'], 2) != round(linha_destino['valor_total'], 2):
-            tipos.append('VALOR_DIVERGENTE')
+        if not (isinstance(linha_origem['valor_total'], float) and
+                math.isnan(linha_origem['valor_total'])):
+            if round(linha_origem['valor_total'], 2) != round(linha_destino['valor_total'], 2):
+                tipos.append('VALOR_DIVERGENTE')
+                campos_divergentes['valor_total'] = {
+                    'valor_origem': linha_origem['valor_total'],
+                    'valor_destino': linha_destino['valor_total']
+                }
+        else:
+            tipos.append('VALOR_AUSENTE_NA_ORIGEM')
             campos_divergentes['valor_total'] = {
-                'valor_origem' : linha_origem['valor_total'],
+                'valor_origem': 'ausente',
                 'valor_destino': linha_destino['valor_total']
             }
 
