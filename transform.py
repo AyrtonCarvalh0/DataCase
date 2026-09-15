@@ -14,17 +14,28 @@ def normalizar_origem(df):
     return df
 
 
-def normalizar_destino(df):
+def normalizar_destino(df, df_estado_origem=None):
     df = _normalizar_comum(df)
+    df = df.drop_duplicates()
+
+    if df_estado_origem is not None and df['id_pedido'].duplicated().any():
+        ids_duplicados = df[df['id_pedido'].duplicated(keep=False)]['id_pedido'].unique()
+        for pid in ids_duplicados:
+            if pid in df_estado_origem['id_pedido'].values:
+                linha_origem = df_estado_origem[df_estado_origem['id_pedido'] == pid].iloc[0]
+                mask = (df['id_pedido'] == pid) & (df['status'] == linha_origem['status'])
+                linhas_erradas = df[(df['id_pedido'] == pid) & ~mask]
+                df = df.drop(linhas_erradas.index)
+            else:
+                df = df[~((df['id_pedido'] == pid) & df.duplicated(subset=['id_pedido'], keep='first'))]
+
     return df
+
 
 def reconstruir_estado_origem(df):
     df = df.copy()
-
-    # 1. Ordena por pedido e data — do mais antigo para o mais recente
     df = df.sort_values(['id_pedido', 'atualizado_em'])
 
-    # 2. Detecta conflito de timestamp — mesmo pedido, mesmo momento, campos diferentes
     conflitos = (
         df.groupby(['id_pedido', 'atualizado_em'])
         .filter(lambda x: x.drop_duplicates().shape[0] > 1)
@@ -32,10 +43,8 @@ def reconstruir_estado_origem(df):
         .unique()
     )
 
-    # 3. Pega o evento mais recente de cada pedido
     df_atual = df.drop_duplicates(subset=['id_pedido'], keep='last')
 
-    # 4. Marca pedidos com I após D como AMBIGUIDADE
     pedidos_com_d = df[df['operacao'] == 'D']['id_pedido'].unique()
     pedidos_reativados = (
         df_atual[
@@ -49,7 +58,7 @@ def reconstruir_estado_origem(df):
     df_atual.loc[df_atual['id_pedido'].isin(conflitos), 'observacao'] = 'INDETERMINADO'
     df_atual.loc[df_atual['id_pedido'].isin(pedidos_reativados), 'observacao'] = 'AMBIGUIDADE'
 
-    # 5. Remove pedidos cujo último evento foi D — não existem mais
+    ids_deletados = set(df_atual[df_atual['operacao'] == 'D']['id_pedido'])
     df_atual = df_atual[df_atual['operacao'] != 'D']
 
-    return df_atual
+    return df_atual, ids_deletados
