@@ -17,12 +17,12 @@ Isso representa **18,8% da base ativa**.
 
 | Problema | Quantidade |
 |---|---|
-| Valor incorreto no relatório | 9 pedidos |
-| Pedido ativo que não aparece no relatório | 5 pedidos |
-| Pedido excluído que ainda aparece no relatório | 5 pedidos |
-| Status incorreto no relatório | 3 pedidos |
+| Valor no relatório diferente do sistema de pedidos | 9 pedidos |
+| Pedido ativo no sistema que não aparece no relatório | 5 pedidos |
+| Pedido excluído do sistema que ainda aparece no relatório | 5 pedidos |
+| Status no relatório diferente do sistema de pedidos | 3 pedidos |
 | Status e valor incorretos ao mesmo tempo | 3 pedidos |
-| Pedidos sem valor registrado na origem | 3 pedidos |
+| Pedidos sem valor registrado no sistema de origem | 3 pedidos |
 
 ---
 
@@ -55,10 +55,14 @@ diretamente a confiabilidade dos dados.
 O faturamento total do relatório está inflado. Qualquer meta
 ou projeção baseada nesses números está errada.
 
-**Prioridade 3 — Pedidos que não aparecem no relatório (5 casos)**
+**Prioridade 3 — Pedidos ativos invisíveis no relatório (5 casos)**
 
-Pedidos ativos que estão invisíveis para a área comercial.
-Podem representar receita não contabilizada.
+Cinco pedidos existem e estão ativos no sistema de pedidos,
+mas não aparecem em nenhum lugar do relatório comercial.
+A área comercial nunca os viu. O valor desses pedidos
+não está sendo contabilizado nas métricas de faturamento,
+o que significa que o total real de vendas pode ser
+ainda maior do que o apurado nesta análise.
 
 ---
 

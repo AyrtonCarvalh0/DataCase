@@ -60,6 +60,13 @@ Não é possível determinar qual chegou depois — o timestamp
 não resolve o desempate e a ordem de chegada na fila
 não está registrada.
 
+Os pedidos 10054 e 10105 aparecem no relatório com
+tipo_divergencia STATUS_DIVERGENTE|VALOR_DIVERGENTE e
+observacao INDETERMINADO — sinalizando que além da
+divergência com o destino, o próprio estado da origem
+é incerto. O pedido 10149 não tinha divergência de campo
+mas foi reportado explicitamente como ESTADO_INDETERMINADO.
+
 **Decisão:** esses pedidos foram marcados com
 `observacao = INDETERMINADO` no relatório. Não foram
 excluídos nem corrigidos arbitrariamente. A resolução

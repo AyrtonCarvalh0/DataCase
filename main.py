@@ -14,6 +14,13 @@ def main():
     df_diverg = comparar(df_estado, df_destino, ids_deletados)
     gerar_relatorio(df_diverg)
 
+    print('\nPedidos indeterminados no relatório:')
+    print(df_diverg[df_diverg['observacao'] == 'INDETERMINADO'][
+        ['id_pedido', 'tipo_divergencia', 'observacao']
+    ].to_string())
+
+
 
 if __name__ == '__main__':
     main()
+

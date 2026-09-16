@@ -89,6 +89,37 @@ def comparar(df_estado, df_destino, ids_deletados):
                 'observacao'      : linha_origem['observacao']
             })
 
+    # AMBIGUIDADES
+    ids_ja_reportados = {d['id_pedido'] for d in divergencias}
+    ambiguos = df_estado[df_estado['observacao'] == 'AMBIGUIDADE']
+    for _, linha in ambiguos.iterrows():
+        pid = linha['id_pedido']
+        if pid not in ids_ja_reportados:
+            divergencias.append({
+                'id_pedido': pid,
+                'tipo_divergencia': 'AMBIGUIDADE_I_APOS_D',
+                'campo': 'operacao',
+                'valor_origem': 'I após D — reativação ou reuso de ID',
+                'valor_destino': 'validação manual necessária',
+                'observacao': 'AMBIGUIDADE'
+            })
+            ids_ja_reportados.add(pid)
+
+    # INDETERMINADOS
+    indeterminados = df_estado[df_estado['observacao'] == 'INDETERMINADO']
+    for _, linha in indeterminados.iterrows():
+        pid = linha['id_pedido']
+        if pid not in ids_ja_reportados:
+            divergencias.append({
+                'id_pedido': pid,
+                'tipo_divergencia': 'ESTADO_INDETERMINADO',
+                'campo': 'atualizado_em',
+                'valor_origem': 'dois eventos com mesmo timestamp e campos diferentes',
+                'valor_destino': 'validação manual necessária',
+                'observacao': 'INDETERMINADO'
+            })
+            ids_ja_reportados.add(pid)
+
     return pd.DataFrame(divergencias)
 
 
