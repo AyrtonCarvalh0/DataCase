@@ -13,7 +13,8 @@ __pycache__/
 *.pyd
 
 # Dados — os CSVs não sobem para o repositório
-*.csv
+pedidos_origem.csv
+pedidos_destino.csv
 
 # OS
 .DS_Store

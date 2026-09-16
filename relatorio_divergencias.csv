@@ -1,0 +1,30 @@
+id_pedido,tipo_divergencia,campo,valor_origem,valor_destino,observacao
+10080,PEDIDO_AUSENTE_NO_DESTINO,registro,pedido ativo,não encontrado,
+10116,PEDIDO_AUSENTE_NO_DESTINO,registro,pedido ativo,não encontrado,
+10028,PEDIDO_AUSENTE_NO_DESTINO,registro,pedido ativo,não encontrado,
+10099,PEDIDO_AUSENTE_NO_DESTINO,registro,pedido ativo,não encontrado,
+10135,PEDIDO_AUSENTE_NO_DESTINO,registro,pedido ativo,não encontrado,
+10024,PEDIDO_DELETADO_PRESENTE,registro,deletado,PAGO,
+10056,PEDIDO_DELETADO_PRESENTE,registro,deletado,CANCELADO,
+10026,PEDIDO_DELETADO_PRESENTE,registro,deletado,ENVIADO,
+10038,PEDIDO_DELETADO_PRESENTE,registro,deletado,ENTREGUE,
+10010,PEDIDO_DELETADO_PRESENTE,registro,deletado,CANCELADO,
+10020,VALOR_DIVERGENTE,valor_total,2448.01,2447.98,
+10022,STATUS_DIVERGENTE,status,CANCELADO,ENVIADO,
+10031,VALOR_DIVERGENTE,valor_total,1178.43,1178.42,
+10045,VALOR_DIVERGENTE,valor_total,1700.76,1700.77,
+10050,STATUS_DIVERGENTE|VALOR_DIVERGENTE,status|valor_total,PAGO|3674.19,CANCELADO|3563.92,
+10054,STATUS_DIVERGENTE|VALOR_DIVERGENTE,status|valor_total,ENVIADO|3792.64,PAGO|4096.05,INDETERMINADO
+10064,VALOR_AUSENTE_NA_ORIGEM,valor_total,ausente,0.0,
+10075,VALOR_DIVERGENTE,valor_total,3724.27,3896.37,
+10084,VALOR_DIVERGENTE,valor_total,761.05,815.5,
+10093,STATUS_DIVERGENTE,status,ENTREGUE,PAGO,
+10098,VALOR_AUSENTE_NA_ORIGEM,valor_total,ausente,0.0,
+10105,STATUS_DIVERGENTE|VALOR_DIVERGENTE,status|valor_total,PAGO|6125.21,ENVIADO|6615.23,INDETERMINADO
+10107,STATUS_DIVERGENTE,status,CANCELADO,ENVIADO,
+10119,VALOR_AUSENTE_NA_ORIGEM,valor_total,ausente,0.0,
+10141,VALOR_DIVERGENTE,valor_total,2840.77,2840.78,
+10011,AMBIGUIDADE_I_APOS_D,operacao,I após D — reativação ou reuso de ID,validação manual necessária,AMBIGUIDADE
+10029,AMBIGUIDADE_I_APOS_D,operacao,I após D — reativação ou reuso de ID,validação manual necessária,AMBIGUIDADE
+10126,AMBIGUIDADE_I_APOS_D,operacao,I após D — reativação ou reuso de ID,validação manual necessária,AMBIGUIDADE
+10149,ESTADO_INDETERMINADO,atualizado_em,dois eventos com mesmo timestamp e campos diferentes,validação manual necessária,INDETERMINADO
